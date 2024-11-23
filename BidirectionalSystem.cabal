@@ -1,0 +1,77 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.37.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           BidirectionalSystem
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/Test#readme>
+author:         Me
+maintainer:     Me
+copyright:      2024 ME
+license:        BSD-3-Clause
+build-type:     Simple
+extra-source-files:
+    README.md
+
+library
+  exposed-modules:
+      ContextUtils
+      Embedding
+      Inference
+      Lib
+      Syntax
+      Terms
+      TypeUtils
+  other-modules:
+      Paths_BidirectionalSystem
+  autogen-modules:
+      Paths_BidirectionalSystem
+  hs-source-dirs:
+      src
+  default-extensions:
+      LambdaCase
+      TypeFamilies
+      StandaloneDeriving
+      InstanceSigs
+      TupleSections
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-top-binds -Wno-compat-unqualified-imports -Wno-unused-matches -Wno-name-shadowing -Wno-incomplete-uni-patterns -Wno-incomplete-patterns
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , mtl
+  default-language: Haskell2010
+
+executable BidirectionalSystem-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_BidirectionalSystem
+  autogen-modules:
+      Paths_BidirectionalSystem
+  hs-source-dirs:
+      ./
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-top-binds -Wno-compat-unqualified-imports -Wno-unused-matches -Wno-name-shadowing -Wno-incomplete-uni-patterns -Wno-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BidirectionalSystem
+    , base >=4.7 && <5
+    , containers
+    , mtl
+  default-language: Haskell2010
+
+test-suite BidirectionalSystem-test
+  type: exitcode-stdio-1.0
+  main-is: Test.hs
+  other-modules:
+      Paths_BidirectionalSystem
+  autogen-modules:
+      Paths_BidirectionalSystem
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-top-binds -Wno-compat-unqualified-imports -Wno-unused-matches -Wno-name-shadowing -Wno-incomplete-uni-patterns -Wno-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BidirectionalSystem
+    , base >=4.7 && <5
+    , containers
+    , mtl
+  default-language: Haskell2010
