@@ -1,0 +1,6 @@
+# MacOS
+.DS_Store
+
+# Haskell Tools
+.stack-work/
+dist-newstyle/
