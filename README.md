@@ -16,7 +16,7 @@ calculus sytax and the haskell syntax for lambda abstractions.
 For example write `\x.x` for the id term.  
 
 You can also add annotations, annotated terms should be in parens.  
-For example term `ω: ∀a.a` can be types as `(\x.x x): [a]a`  
+For example term `ω: ∀a.a` can be typed as `(\x.x x): [a]a`  
 Term `(K I ω) : ∀a. a -> a` as `((\x.\y.x) (\x.x) (\x.x x)): [a] a -> a`
 
 After you type the term you want inference for in the `example.test` file, 
