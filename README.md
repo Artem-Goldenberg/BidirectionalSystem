@@ -11,7 +11,18 @@ Additionaly can infer SystemF types of an arbitrary rank, as long as enough type
 
 Need to have regular Haskell tools like `stack` and `cabal` installed.
 
-For now, this project is intended to be used via `ghci`.  
+Edit the term in the `example.term`. The syntax is mix between classic lambda
+calculus sytax and the haskell syntax for lambda abstractions.  
+For example write `\x.x` for the id term.  
+
+You can also add annotations, annotated terms should be in parens.  
+For example term `ω: ∀a.a` can be types as `(\x.x x): [a]a`  
+Term `(K I ω) : ∀a. a -> a` as `((\x.\y.x) (\x.x) (\x.x x)): [a] a -> a`
+
+After you type the term you want inference for in the `example.test` file, 
+use `stack run` to run the main program, it will print you a report on your term.
+
+You can also use it via `ghci`.  
 After installation run `stack build`. 
 Then enter interactive mode with `stack ghci`. 
 
@@ -19,10 +30,14 @@ Main tools to use are
 ```Haskell
 infer :: Term -> Maybe Type
 inferWith :: Context -> Term -> Maybe Type`
+
+infer2 :: Term -> Maybe Type
+inferWith2 :: Context -> Term -> Maybe Type`
 ```
 They return the inferred type for the provided term. Or `Nothing` if the type cannot be infered. `inferWith` allows to supply initial context. `infer` uses an empty one.
 
-> **Important**: Annoyingly enough, but right now variables binded at different places cannot have the same name. For inference to work correctly, use a new variable name at each binder (should fix that).
+Functions with the prefix `2` are a more elaborate rule for lambda type inference, so that
+the system can fully subsume the Hindely-Milner type inference system, at leas in theory that is... If you find cases where it doesn't work, you can tell about them to me
 
 ### Examples
 
@@ -64,8 +79,5 @@ Construct contexts as lists of `ContextEntry` type. As a user, you should only u
 
 # Todo
 
-- A little tweak to fully subsume Hindley-Milner inference
-- Add Freshness state to context to avoid alpha conflicts
 - Enhance print (remove unneeded parentheses)
 - Provide error messages
-- Add parser of terms
