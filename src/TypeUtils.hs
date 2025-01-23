@@ -2,7 +2,14 @@ module TypeUtils (module TypeUtils) where
 
 import Data.Function
 import Control.Monad.State
+
 import Syntax
+
+infix 3 .==
+
+(.==) :: Var Type -> Type -> ContextEntry
+(.==) = EEq
+
 
 infix 5 -->
 
@@ -33,6 +40,7 @@ cleanupVars a = foldr (\fresh a -> ForAll (vars !! fresh) a) renamed [0 .. fresh
         rename = do
             (context, fresh, a) <- get
             case a of 
+                Basic alpha -> return ()
                 TVar alpha -> case lookup alpha context of
                     Just var -> put (context, fresh, Basic var)
                     Nothing -> put ((alpha, newVar):context, fresh + 1, Basic newVar)

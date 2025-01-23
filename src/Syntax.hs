@@ -12,16 +12,17 @@ data Term =
     | App Term Term
     | Anno Term Type
     deriving Eq
+    -- deriving (Eq, Show)
 
 instance Show Term where
     show :: Term -> String
     show = \case
         Unit -> "()"
         Var x -> x
-        Lam x term -> "\\" ++ x ++ "." ++ show term
+        Lam x term -> "(" ++ "\\" ++ x ++ "." ++ show term ++ ")"
         App term term' -> "(" ++ show term ++ " " ++ show term' ++ ")"
         Anno term a -> "(" ++ show term ++ ": " ++ show a ++ ")"
-  
+
 infixr 4 :->
 
 data Type =
@@ -31,6 +32,7 @@ data Type =
     | ForAll (Var Type) Type
     | Type :-> Type
     deriving Eq
+    -- deriving Show
 
 instance Show Type where
     show :: Type -> String
@@ -39,7 +41,11 @@ instance Show Type where
         Basic alpha -> alpha
         TVar alpha -> "^" ++ alpha
         ForAll alpha a -> "∀" ++ alpha ++ "." ++ show a
-        a :-> b -> "(" ++ show a ++ " -> " ++ show b ++ ")"
+        a :-> b -> p a ++ " -> " ++ show b
+        where
+            p a@(_ :-> _) = "(" ++ show a ++ ")"
+            p a@(ForAll _ _) = "(" ++ show a ++ ")"
+            p a = show a
 
 data MonoType =
       MUnit

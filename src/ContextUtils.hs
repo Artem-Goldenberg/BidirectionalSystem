@@ -1,20 +1,23 @@
 module ContextUtils (module ContextUtils) where
 
+import Data.List
 import Data.Maybe
 import Data.Function
-import Data.List
 
 import Lib
 import Syntax
+import TypeUtils
 
 infix 2 |-
 
-class UnderContext a where
+type Fresh = Int
+
+class InContext a where
     type ContextResult a
     type ContextResult a = Maybe Context
     (|-) :: Context -> a -> ContextResult a
 
-instance UnderContext Type where -- type well formdness
+instance InContext Type where -- type well formdness
     type ContextResult Type = Bool
     (|-) :: Context -> Type -> Bool
     context |- a = case a of
@@ -67,3 +70,8 @@ replace :: Context -> Var Type -> Context -> Context
 replace context typeVar substitute = let
     (after, _:before) = break (== EVar typeVar) context
     in after ++ substitute ++ before
+
+articulate :: String -> Fresh -> (Context, String, String)
+articulate alpha fresh = (addons, alpha1, alpha2)
+    where alpha1 = "a" ++ show fresh; alpha2 = "a" ++ show (fresh + 1)
+          addons = [alpha .== TVar alpha1 :-> TVar alpha2, EVar alpha1, EVar alpha2]
